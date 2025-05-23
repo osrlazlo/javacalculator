@@ -8,4 +8,3 @@ Note that code is not optimized, only functional, and about 20% of the lines are
 Things to add in the future :
 - input for pi
 - basic trig operations
-- modify removeParenthesis() to look for 1st closed ) instead of last open (, that way it is not necessary to search through the entire array on every call
