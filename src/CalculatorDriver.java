@@ -301,6 +301,12 @@ public class CalculatorDriver extends CalculatorGUI {
 		 		if (element.equals("(")) open_p++;
 		 	}
 		 	
+	 		System.out.print("num_op_AL: [");
+	 		for (String element : num_opAL) {
+	 			System.out.print(element+",");
+	 			}
+	 		System.out.println("]");
+		 	
 		 if (open_p != close_p) {
 			 System.out.println(entry); 
 				System.out.println("error:syntax"); 
@@ -309,11 +315,13 @@ public class CalculatorDriver extends CalculatorGUI {
 				output = "";
 				return "0";
 		 }
-		 	
+		 
 		 	for (int i = 0; i<num_opAL.size()-1; i++) {
-		 		if (num_opAL.get(i).matches(validNum)) {
+		 			String str = num_opAL.get(i);
+		 			String strNext = num_opAL.get(i+1);
+		 		if (str.matches("[0-9\\)]") || str.substring(str.trim().length()).matches("[0-9\\)]")) {
 		 			System.out.println("checknext");
-		 			if (num_opAL.get(i+1).equals("(")) {
+		 			if (strNext.equals("(") || strNext.substring(0,1).matches("[0-9]")) {
 		 				System.out.println("add x");
 		 				num_opAL.add(i+1, " x ");
 		 			}
@@ -321,21 +329,19 @@ public class CalculatorDriver extends CalculatorGUI {
 		 	}
  		
 	 		//find index of last open parenthesis
-	 		int indexOfLast = num_opAL.lastIndexOf("(");
+	 		int indexOfLastPar = num_opAL.lastIndexOf("(");
 	 		
 	 		//get result of operation in parenthesis
-	 		num_opAL.set(indexOfLast+1,""+getResult(num_opAL.get(indexOfLast+1)));
+	 		num_opAL.set(indexOfLastPar+1,""+getResult(num_opAL.get(indexOfLastPar+1)));
 	 		//remove parenthesis for which value was calculated
-	 		num_opAL.remove(indexOfLast);
-	 		num_opAL.remove(indexOfLast+1);
+	 		num_opAL.remove(indexOfLastPar);
+	 		num_opAL.remove(indexOfLastPar+1);
  		
 	 		String resultNoParenthesis = "";
 	 		System.out.print("num_opAL: [");
 		 		for (String element : num_opAL) {
-		 			if (!element.contains("=")) {
 			 			System.out.print(element+",");
 			 			resultNoParenthesis += element;
-		 			}
 		 		}
 		 	System.out.println("]");
 		 	System.out.println(resultNoParenthesis);
